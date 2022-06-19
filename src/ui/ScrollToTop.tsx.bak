@@ -1,0 +1,27 @@
+import { default as React, useContext, useEffect } from 'react';
+
+import useReactRouter from 'use-react-router';
+
+
+interface ScrollToTop{
+ 
+    children:any;
+}
+
+export function ScrollToTop(props:ScrollToTop) {
+
+
+    const router = useReactRouter()
+
+
+  useEffect(() => {
+    const unlisten = router.history.listen(() => {
+      window.scrollTo(0, 0);
+    });
+    return () => {
+      unlisten();
+    }
+  }, []);
+
+  return <React.Fragment>{props.children}</React.Fragment>;
+}
